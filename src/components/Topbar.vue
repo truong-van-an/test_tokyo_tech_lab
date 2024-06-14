@@ -41,28 +41,26 @@ export default {
         }
     },
     methods:{
-        handleDebounce(event){
-            const debouncedLoadValue = this.debounce(() => {
-                this.handleSearch(event.target.value)
-            }, 1000);
-            debouncedLoadValue()
+        handleDebounce(event) {
+            this.debounce(() => {
+                this.handleSearch(event.target.value);
+            }, 1000)();
         },
         async handleSearch(value) {
-            if(value.length > 0){
-                try {
-                    const response = await axios.get('/data.json');
-                    let data = response.data;
-                    this.listDataSearch = data.filter(song => song.name_song.toLowerCase().includes(value.toLowerCase()));
-                    if(this.listDataSearch.length > 0){
-                        this.isListDataResult = true
-                    }
-                    
-                } catch (error) {
-                    console.error('Error fetching data:', error);
+            try {
+                if (value.length === 0) {
+                this.isListDataResult = false;
+                return;
                 }
-            }
-            else{
-                this.isListDataResult = false
+                
+                const response = await axios.get('/data.json');
+                this.listDataSearch = response.data.filter(song => 
+                song.name_song.toLowerCase().includes(value.toLowerCase())
+                );
+                
+                this.isListDataResult = this.listDataSearch.length > 0;
+            } catch (error) {
+                console.error('Error fetching data:', error);
             }
         },
         handlePlayMusic(data){

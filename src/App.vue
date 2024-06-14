@@ -124,10 +124,9 @@ export default {
     },
     async getSongs() {
       try {
-        const response = await axios.get('/data.json');
-        let data = response.data.slice(0, 10);
-        this.listSongs = [...data]
-        this.sortedSongs = [...data].sort((a, b) => b.download - a.download);
+        const { data } = await axios.get('/data.json');
+        this.listSongs = data.slice(0, 10);
+        this.sortedSongs = [...this.listSongs].sort((a, b) => b.download - a.download);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
