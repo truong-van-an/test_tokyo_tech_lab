@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import"./variable";
+@import"./topbar.scss";
+@import"./home.scss";
+@import"./play-music.scss";
+
+@media screen and (max-width: 768px) {
+    #topbar{
+        padding: 20px 32px;
+        .logo{
+            font-size: 3vw;
+        }
+        .form-search{
+            width: 361px;
+            .search{
+                font-size: $font-size;
+            }
+        }
+    }
+    .main-content{
+        padding: 0px 32px;
+        .container{
+            max-width: 100%;
+            padding: 0;
+        }
+        .banner{
+            height: 311px;
+            .swiper-button-next, .swiper-button-prev{
+                width: 30px;
+                height: 30px;
+            }
+            .swiper-pagination-bullet{
+                width: 15px;
+            }
+            .swiper-pagination-bullet-active{
+                width: 30px;
+            }
+        }
+        .propose-wrapper{
+            .song-app-list{
+                .song-app-item{
+                    cursor: pointer;
+                    .image{
+                        width: 97px!important;
+                        height: 97px!important;
+                    }
+                    .song-app-info{
+                        .name-song{
+                            font-size: 16px!important;
+                        }
+                        .singer{
+                            font-size: 12px!important;
+                        }
+                    }
+                }
+            }
+        }
+        .song-app-wrapper{
+            .song-app-title{
+                span{
+                    font-size: $font-size-tablet-title;
+                }
+            }
+            .song-app-list{
+                .song-app-item{
+                    .image{
+                        width: 97px;
+                        height: 97px;
+                    }
+                    .song-app-info{
+                        .name-song{
+                            font-size: 18px;
+                        }
+                        .singer{
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    #play-music-wrapper{
+        .play-music-left{
+            .image{
+                width: 40px;
+                height: 40px;
+            }
+            .music-info{
+                .singer{
+                    font-size: 10px;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 375px) {
+    #topbar{
+        padding: 16px;
+        >.d-flex{
+            justify-content: space-between;
+        }
+        .logo{
+            font-size: 0.8rem;
+        }
+        .form-search{
+            width: 218px;
+            .search{
+                font-size: 14px;
+                margin-left: 0;
+            }
+        }
+        .search-item{
+            .image{
+                width: 40px!important;
+                height: 40px!important;
+            }
+            .song-app-info{
+                padding: 0px 0.5rem!important;
+                .name-song{
+                    font-size: 10px;
+                }
+            }
+        }
+    }
+    .main-content{
+        padding: 0px 1rem;
+        .banner{
+            height: 202px;
+            .swiper-button-next, .swiper-button-prev{
+                width: 30px;
+                height: 30px;
+            }
+            .swiper-pagination-bullet{
+                width: 15px;
+            }
+            .swiper-pagination-bullet-active{
+                width: 30px;
+            }
+        }
+        .new-song-wrapper{
+            .new-song-title{
+                span{
+                    font-size: 24px;
+                }
+            }
+            .new-song-list{
+                .new-song-item{
+                    .image{
+                        width: 97px;
+                        height: 97px;
+                    }
+                    .new-song-info{
+                        .name-song{
+                            font-size: 18px;
+                        }
+                        .singer{
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
