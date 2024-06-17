@@ -1,6 +1,6 @@
 <template>
   <div id="layout-wrapper" class="position-relative">
-    <Topbar @changeMusicSearch="changeMusicSearch"></Topbar>
+    <Topbar ref="search" @changeMusicSearch="changeMusicSearch"></Topbar>
     <div class="main-content w-100">
         <div class="container">
           <div class="banner col-12">
@@ -139,6 +139,7 @@ export default {
     },
     handleDel(id){
       this.removeItem(id);
+      this.$refs.search.arrayMusic = JSON.parse(sessionStorage.getItem("history"))
     }
   }
 };
