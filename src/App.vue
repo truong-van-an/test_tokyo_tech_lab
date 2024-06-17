@@ -54,7 +54,7 @@
               </div>
               </div>
           </section>
-          <section class="song-app-wrapper my-5">
+          <section id="top-download-songs" class="song-app-wrapper my-5">
             <div class="song-app-title position-relative py-2 mb-5">
               <span class="fw-bold">Top Download Songs</span>
               <div class="line position-absolute w-100"></div>
@@ -67,6 +67,10 @@
               </div>
           </section>
         </div>
+    </div>
+    <div v-if="loading" class="d-flex justify-content-center align-items-center mb-3">
+      <span class="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true"></span>
+      Loading...
     </div>
     <PlayMusic ref="compPlayMusic" v-if="dataPlayMusic" :dataPlayMusic="dataPlayMusic"></PlayMusic>
   </div>
@@ -100,11 +104,13 @@ export default {
       sortedSongs: [],
       dataPlayMusic: null,
       listSongsPropose: this.$store.state.history.dataHistory,
-      dataSession: JSON.parse(sessionStorage.getItem('history'))
+      dataSession: JSON.parse(sessionStorage.getItem('history')),
+      loading: false, // Track loading state
     }
   },
   mounted(){
     this.getSongs()
+    window.addEventListener('scroll', this.handleScroll);
   },
   watch:{
     getDataHistory: function(newData){
@@ -140,7 +146,28 @@ export default {
     handleDel(id){
       this.removeItem(id);
       this.$refs.search.arrayMusic = JSON.parse(sessionStorage.getItem("history"))
-    }
+    },
+    async loadMoreSongs() {
+      this.loading = true;
+      setTimeout(async()=>{
+        try {
+          const { data } = await axios.get('/data.json');
+          const newSongs = data.slice(0,10).sort((a, b) => b.download - a.download);
+          this.sortedSongs = [...this.sortedSongs, ...newSongs];
+        } catch (error) {
+          console.error('Error loading more songs:', error);
+        } finally {
+          this.loading = false;
+        }
+      }, 2000)
+    },
+    handleScroll() {
+      const topDownloadSection = document.getElementById('top-download-songs');
+      const rect = topDownloadSection.getBoundingClientRect();
+      if (rect.bottom <= window.innerHeight && !this.loading) {
+        this.loadMoreSongs();
+      }
+    },
   }
 };
 </script>
